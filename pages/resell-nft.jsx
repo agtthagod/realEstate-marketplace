@@ -54,7 +54,7 @@ export default function ResellNFT() {
 
         <div className="mt-7 w-full flex justify-end">
           <Button
-            btnName="List NFT"
+            btnName="List TOKEN"
             classStyles="rounded-xl"
             handleClick={resell}
           />

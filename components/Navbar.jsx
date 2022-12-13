@@ -20,6 +20,8 @@ const MenuItems = ({ isMobile, active, setActive }) => {
         break;
       case 2:
         return "/my-nfts";
+      case 3:
+        return "/rent-details";
       default:
         return "/";
     }
@@ -31,21 +33,23 @@ const MenuItems = ({ isMobile, active, setActive }) => {
         isMobile && "flex-col h-full"
       }`}
     >
-      {["Explore Tokens", "Listed Tokens", "My Tokens"].map((item, i) => (
-        <li
-          key={i}
-          onClick={() => {
-            setActive(item);
-          }}
-          className={`flex flex-row items-center font-poppins font-semibold text-base dark:hover:text-white hover:text-nft-dark mx-3 ${
-            active === item
-              ? "dark:text-white text-nft-black-1"
-              : "dark:text-nft-gray-3 text-nft-gray-2"
-          }`}
-        >
-          <Link href={generateLink(i)}>{item}</Link>
-        </li>
-      ))}
+      {["Explore Tokens", "Listed Tokens", "My Tokens", "Rent Manager"].map(
+        (item, i) => (
+          <li
+            key={i}
+            onClick={() => {
+              setActive(item);
+            }}
+            className={`flex flex-row items-center font-poppins font-semibold text-base dark:hover:text-white hover:text-nft-dark mx-3 ${
+              active === item
+                ? "dark:text-white text-nft-black-1"
+                : "dark:text-nft-gray-3 text-nft-gray-2"
+            }`}
+          >
+            <Link href={generateLink(i)}>{item}</Link>
+          </li>
+        )
+      )}
     </ul>
   );
 };
@@ -86,6 +90,9 @@ const checkActive = (active, setActive, router) => {
       break;
     case "/create-nft":
       setActive("");
+      break;
+    case "/rent-details":
+      setActive("Rent Manager");
       break;
 
     default:

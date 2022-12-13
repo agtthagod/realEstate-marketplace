@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-// const dedicatedEndPoint = 'https://ipfs.infura.io:5001';
+
 const nextConfig = {
     reactStrictMode: true,
     swcMinify: true,
@@ -8,5 +8,5 @@ const nextConfig = {
     },
 
 };
-// nft-marketplace777.
+
 module.exports = nextConfig;

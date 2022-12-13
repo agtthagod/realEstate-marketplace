@@ -3,10 +3,10 @@ import { useRouter } from "next/router";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
 import { useTheme } from "next-themes";
-import { Button, Input } from "../components";
+import { Button, Input, Banner } from "../components";
 import images from "../assets";
 import { NFTContext } from "../context/NFTcontext";
-
+import { shortenAddress } from "../utils/shortenAddress";
 export default function CreateNFT() {
   const [fileUrl, setFileUrl] = useState(null);
   const [formInput, setFormInput] = useState({
@@ -17,7 +17,7 @@ export default function CreateNFT() {
 
   const router = useRouter();
 
-  const { uploadToIPFS, createNFT } = useContext(NFTContext);
+  const { uploadToIPFS, createNFT, currentAccount } = useContext(NFTContext);
   const { theme } = useTheme();
 
   const onDrop = useCallback(async (acceptedFile) => {
@@ -53,16 +53,33 @@ ${isDragReject && "border-file-reject"}
   );
 
   return (
-    <div className="flex justify-center sm:px-4 p-12 ">
-      <div className="w-3/5 md:w-full">
-        <h1 className=" font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold sm:mb-4">
-          Create new real estate token
-        </h1>
-        <div className="mt-16">
-          <p className=" font-poppins dark:text-white text-nft-black-1 font-semibold text-xl">
-            Upload File
+    <div className="flex flex-col justify-center sm:px-4 p-12 flexBetween">
+      <div className="w-full flexCenter flex-col">
+        <Banner
+          banner="Rent Manager"
+          childStyles="text-center mb-4"
+          parentStyles="h-80 justify-center"
+        />
+        <div className="flexCenter flex-col -mt-20 z-0">
+          <div className="flexCenter w-40 h-40 sm:w-36 sm:h-36 p-1 bg-nft-black-2 rounded-full">
+            <Image
+              src={images.creator1}
+              className="rounded-full object-cover"
+              objectFit="cover"
+            />
+          </div>
+          <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-2xl mt-6 ">
+            {shortenAddress(currentAccount)}
           </p>
-          <div className="mt-4">
+        </div>
+      </div>
+
+      <div className="w-3/5 md:w-full mt-5 justify-center">
+        <div className="mt-16">
+          {/* <p className=" font-poppins dark:text-white text-nft-black-1 font-semibold text-xl">
+            Upload File
+          </p> */}
+          {/* <div className="mt-4">
             <div {...getRootProps()} className={fileStyle}>
               <input {...getInputProps()} />
               <div className="flexCenter flex-col text-center">
@@ -94,12 +111,12 @@ ${isDragReject && "border-file-reject"}
                 </div>
               </aside>
             )}
-          </div>
+          </div> */}
         </div>
         <Input
           inputType="input"
-          title="Name"
-          placeholder="Token Name"
+          title="Register Tenant"
+          placeholder="Tenant Address"
           handleClick={(e) =>
             setFormInput({ ...formInput, name: e.target.value })
           }
@@ -107,31 +124,31 @@ ${isDragReject && "border-file-reject"}
         <Input
           inputType="textarea"
           title="Description"
-          placeholder="Describe your Real Estate Token"
+          placeholder="Describe your Tenant"
           handleClick={(e) =>
             setFormInput({ ...formInput, description: e.target.value })
           }
         />
         <Input
           inputType="number"
-          title="Price"
-          placeholder="Token Price"
+          title="Set Rent"
+          placeholder="Rent Price"
           handleClick={(e) =>
             setFormInput({ ...formInput, price: e.target.value })
           }
         />
-        <Input
+        {/* <Input
           inputType="number"
           title="Quantity"
           placeholder="No of Tokens"
           handleClick={(e) =>
             setFormInput({ ...formInput, quantity: e.target.value })
           }
-        />
+        /> */}
 
         <div className="mt-7 w-full flex justify-end">
           <Button
-            btnName="Create TOKEN"
+            btnName="Create Tenant"
             classStyles="rounded-xl"
             handleClick={() => createNFT(formInput, fileUrl, router)}
           />
